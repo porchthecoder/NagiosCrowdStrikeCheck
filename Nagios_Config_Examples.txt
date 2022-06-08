@@ -1,0 +1,27 @@
+/etc/nagios/objects/commands.cfg
+define command{
+        command_name    cs_host_check
+        command_line    /usr/bin/python3 $USER1$/CS_host_check.py -H $HOSTNAME$
+        }
+
+
+/etc/nagios/conf.d/servers.cfg
+define service{
+        use                             generic-service
+        host_name                       webserver01,fileserver02,domaincontroller01
+        service_description             CrowdStrike Cloud Connection Status
+        check_command                   cs_hosts_api
+        check_interval                  30
+        flap_detection_enabled          0
+        retry_interval                  5
+        notifications_enabled           1
+        notification_options            w,c,r
+        servicegroups                   CrowdStrike Cloud Connection Status
+        contact_groups                  eddie
+        notes                           Checks server status in the CrowdStrike Cloud. This alerts if this server is not in the CrowdStrike cloud or is stale. This does not check the server itself, but calls the CrowdStrike API for this server's status. This information may be stale by an hour as the data is refreshed hourly from CrowdStrike. Alerts when a host has not checked into CS in 2 hours.
+		}
+
+define servicegroup{
+        servicegroup_name       CrowdStrike Cloud Connection Status
+        alias
+}
