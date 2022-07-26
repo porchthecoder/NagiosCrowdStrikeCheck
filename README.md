@@ -1,6 +1,9 @@
 # NagiosCrowdStrikeCheck
 Nagios check to query the CrowdStrike API for current host checkin status
 
+![image](https://user-images.githubusercontent.com/107140997/181105373-d193804f-1247-47d2-a08f-6a68cd25ec88.png)
+
+
 When run as a service check in Nagios, this Python3 script queries the CrowdStrike API for last host check in time. If the host has not checked into CrowdStrike within the last 2 hours, then the script returns the Critical status to Nagios. 
 The intended purpose of this script is to validate servers have CrowdStrike installed on them, and that it is functional and checking into the CrowdStrike Cloud. 
 
